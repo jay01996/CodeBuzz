@@ -1,0 +1,34 @@
+<!-- your_app/templates/your_app/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Site{% endblock %}</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- <nav class="navbar bg-body-tertiary bg-danger shadow-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" ><b>Recipe Kingg </b></a>
+        <form class="d-flex" role="search" >
+        
+        {% if request.user.is_authenticated %}
+        <a href="/logout/" class="btn btn-outline-success" type="submit">Logout</a>
+        {% else %}
+        <a href="/login/" class="btn btn-outline-success" type="submit">Login</a>
+
+        {% endif %}
+        </form>
+        </div>
+      </nav> -->
+
+    <div class="container mt-5">
+    {% block start %}
+
+    {% endblock %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
