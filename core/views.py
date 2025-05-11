@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import *
 
 # Create your views here.
 def home(request):
