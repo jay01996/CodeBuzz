@@ -1,34 +1,61 @@
 <!-- your_app/templates/your_app/base.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}My Site{% endblock %}</title>
+    <title>{% block title %} CodeBuzz{% endblock %}</title>
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar-brand {
+            font-weight: bold;
+            color: teal !important;
+        }
+
+        .nav-link {
+            color: black !important;
+        }
+
+        .btn-login {
+            background-color: teal;
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
-    <!-- <nav class="navbar bg-body-tertiary bg-danger shadow-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" ><b>Recipe Kingg </b></a>
-        <form class="d-flex" role="search" >
-        
-        {% if request.user.is_authenticated %}
-        <a href="/logout/" class="btn btn-outline-success" type="submit">Logout</a>
-        {% else %}
-        <a href="/login/" class="btn btn-outline-success" type="submit">Login</a>
 
-        {% endif %}
-        </form>
+    </div>
+    <nav class="navbar navbar-expand-lg bg-light shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">CodeBuzz</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/homepage/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about/">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact/">Contact</a>
+                    </li>
+                </ul>
+                <a href="/login/" class="btn btn-login">Login</a>
+            </div>
         </div>
-      </nav> -->
+    </nav>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <div class="container mt-5">
-    {% block start %}
+        {% block start %}
 
-    {% endblock %}
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        {% endblock %}
+    </div>
 </body>
 </html>
