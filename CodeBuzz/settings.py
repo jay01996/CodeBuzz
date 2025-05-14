@@ -47,7 +47,9 @@ EXTERNAL_APPS = [
     'performance',
     'departments',
     'discussions',
-    'notifications'
+    'notifications',
+    'faculty',
+    'adminPanel',
 ]
 
 INSTALLED_APPS += EXTERNAL_APPS

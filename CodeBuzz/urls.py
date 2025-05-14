@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from core.views import *
 from users.views import *
+from faculty.views import *
+from adminPanel.views import *
 
 
 urlpatterns = [
@@ -25,5 +27,8 @@ urlpatterns = [
     path('login/', user_login, name='login'),
     path('about/', about, name='about'),
     path('contact/', contact, name ='contact'),
+    path('student_dashboard/', student_dashboard, name ='student_dashboard'),
+    path('faculty_dashboard/', faculty_dashboard, name ='faculty_dashboard'),
+    path('admin_dashboard/', admin_dashboard, name ='admin_dashboard'),
     path('admin/', admin.site.urls)
     ]
