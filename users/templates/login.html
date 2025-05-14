@@ -4,7 +4,18 @@
 {% block title %}Login - CodeBuzz{% endblock %}
 
 {% block start %}
+{% if messages %}
+  <div class="container mt-2">
+    {% for message in messages %}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
 <div class="container mt-5 mb-5">
+    
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-5">
             <div class="card shadow border-0">
@@ -16,8 +27,9 @@
 
                         <!-- Username -->
                         <div class="mb-3">
-                            <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+                            <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                            <input type="email" name="email" class="form-control" required value="{{ email }}" placeholder="Enter your Email" required>
+
                         </div>
 
                         <!-- Password + Show Password -->
@@ -34,9 +46,9 @@
                             <label for="role" class="form-label">Role <span class="text-danger">*</span></label>
                             <select class="form-select" id="role" name="role" required>
                                 <option value="" disabled selected>Select your role</option>
-                                <option value="student">Student</option>
-                                <option value="faculty">Faculty</option>
-                                <option value="admin">Admin</option>
+                                <option value="student" name ='student'>Student</option>
+                                <option value="faculty" name="faculty">Faculty</option>
+                                <option value="admin" name ='admin'>Admin</option>
                             </select>
                         </div>
 
