@@ -49,7 +49,43 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="studentDropdown">
                                 <li><a class="dropdown-item" href="{% url 'student_dashboard' %}">My Dashboard</a></li>
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'student_profile' %}">Profile</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">  
+                                </li>
+                                <li><a class="dropdown-item text-danger" href="{% url 'student_logout' %}">Logout</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        {% elif request.session.faculty_id %}
+                         <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="faculty_Dropdown" role="button"
+                                data-bs-toggle="dropdown">
+                                <i class="bi bi-person-circle"></i> Faculty Dashboard
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="Dropdown">
+                                <li><a class="dropdown-item" href="{% url 'faculty_dashboard' %}">My Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{% url 'faculty_profile' %}">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Class</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item text-danger" href="{% url 'student_logout' %}">Logout</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        {% elif request.session.admin_id %}
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="studentDropdown" role="button"
+                                data-bs-toggle="dropdown">
+                                <i class="bi bi-person-circle"></i> Admin Dashboard
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="Dropdown">
+                                <li><a class="dropdown-item" href="{% url 'admin_dashboard' %}">My Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{% url 'admin_profile' %}">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Faculties</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
