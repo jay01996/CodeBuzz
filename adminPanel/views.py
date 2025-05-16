@@ -22,3 +22,7 @@ def admin_profile(request):
         return redirect('login')
 
     return render(request, 'admin_profile.html', {'admin': admin})
+
+def admin_logout(request):
+    request.session.flush()
+    return redirect('home')

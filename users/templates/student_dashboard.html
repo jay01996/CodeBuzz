@@ -4,6 +4,93 @@
 {% block title %}Student Dashboard{% endblock %}
 
 {% block start %}
-<h1>Student Dashboard</h1>
+<div class="container-fluid mt-4">
+  <!-- Welcome Header -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h2 class="fw-bold">Welcome, {{ student.name }}</h2>
+      <p class="text-muted">Course: {{ student.course }} | Semester: {{ student.semester }}</p>
+    </div>
+  </div>
 
+  <!-- Stat Cards -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card shadow-sm border-0 rounded text-white bg-dark">
+        <div class="card-body">
+          <h5 class="card-title">Problems Solved</h5>
+          <h2 class="fw-bold">{{ solved_count }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow-sm border-0 rounded text-white bg-warning">
+        <div class="card-body">
+          <h5 class="card-title">Pending Problems</h5>
+          <h2 class="fw-bold">{{ pending_assignments }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow-sm border-0 rounded text-white bg-success">
+        <div class="card-body">
+          <h5 class="card-title">Overall Score</h5>
+          <h2 class="fw-bold">{{ overall_score }}%</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow-sm border-0 rounded text-white bg-info">
+        <div class="card-body">
+          <h5 class="card-title">College Rank</h5>
+          <h2 class="fw-bold">#{{ rank }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature Links -->
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <a href="{% url 'student_profile' %}" class="text-decoration-none">
+        <div class="card h-100 shadow-sm border-0 hover-shadow">
+          <div class="card-body text-center">
+            <i class="bi bi-person-circle fs-1 text-primary"></i>
+            <h5 class="card-title mt-3">My Profile</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-3 mb-3">
+      <a href="#" class="text-decoration-none">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body text-center">
+            <i class="bi bi-code-square fs-1 text-success"></i>
+            <h5 class="card-title mt-3">Practice Problems</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-3 mb-3">
+      <a href="#" class="text-decoration-none">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body text-center">
+            <i class="bi bi-journal-text fs-1 text-warning"></i>
+            <h5 class="card-title mt-3">Assignments</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-3 mb-3">
+      <a href="#" class="text-decoration-none">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body text-center">
+            <i class="bi bi-megaphone fs-1 text-danger"></i>
+            <h5 class="card-title mt-3">Notices</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
 {% endblock %}

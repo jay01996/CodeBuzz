@@ -19,39 +19,73 @@ def user_login(request):
                 student = Student.objects.get(email=email)
                 if student.password == password:
                     request.session['student_id'] = student.id
+                    request.session['role'] = role  # store role in session
                     return redirect('student_dashboard')
                 else:
                     messages.error(request, "Incorrect password.")
             except Student.DoesNotExist:
                 messages.error(request, "No student found with this email.")
+
         elif role == 'faculty':
             try:
                 faculty = Faculty.objects.get(email=email)
                 if faculty.password == password:
                     request.session['faculty_id'] = faculty.id
+                    request.session['role'] = role  # store role in session
                     return redirect('faculty_dashboard')
                 else:
                     messages.error(request, "Incorrect password.")
             except Faculty.DoesNotExist:
                 messages.error(request, "Faculty Not Found")
+
         elif role == 'admin':
             try:
                 admin = Admin.objects.get(email=email)
                 if admin.password == password:
                     request.session['admin_id'] = admin.id
+                    request.session['role'] = role  # store role in session
                     return redirect('admin_dashboard')
                 else:
                     messages.error(request, "Incorrect password.")
             except Admin.DoesNotExist:
-                messages.error(request, "admin Not Found")
+                messages.error(request, "Admin Not Found")
+
     return render(request, 'login.html', {'email': email, 'role': role})
+
 
 def student_dashboard(request):
     student_id = request.session.get('student_id')
     if not student_id:
         return redirect('login')
     student = Student.objects.get(id=student_id)
-    return render(request, 'student_dashboard.html', {'student': student})
+    context = {
+        'student': student,
+        'solved_count': 12,
+        'pending_assignments': 3,
+        'overall_score': 86,
+        'rank': 18,
+    }
+    return render(request, 'student_dashboard.html', context)
+
+
+
+# def student_dashboard(request):
+#     student_id = request.session.get('student_id')
+#     if not student_id:
+#         return redirect('login')
+
+#     student = Student.objects.get(id=student_id)
+
+#     # Fake stats for now (integrate real logic later)
+#     context = {
+#         'student': student,
+#         'solved_count': 12,
+#         'pending_assignments': 3,
+#         'overall_score': 86,
+#         'rank': 18,
+#     }
+#     return render(request, 'students_dashboard.html', context)
+
 
 def student_logout(request):
     request.session.flush()
