@@ -36,5 +36,7 @@ urlpatterns = [
     path('student/', include('users.urls')),
     path('faculty/', include('faculty.urls')),
     path('admin/', include('adminPanel.urls')),
+    path('reset-password/', verify_email, name='verify_email'),
+    path('set-password/', set_password, name='set_password'),
     path('admin/', admin.site.urls)
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

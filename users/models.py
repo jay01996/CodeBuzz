@@ -58,6 +58,7 @@ class Student(AbstractBaseUser):
 
     contact_number = models.CharField(max_length=15, null=True, blank=True)
     address = models.TextField(max_length=500, blank=True, null=True)
+    roll_no = models.IntegerField(default='1458875', null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)

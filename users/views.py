@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from faculty.models import Faculty
 from adminPanel.models import Admin
+import json
 
 
 def user_login(request):
@@ -49,6 +50,11 @@ def user_login(request):
                     messages.error(request, "Incorrect password.")
             except Admin.DoesNotExist:
                 messages.error(request, "Admin Not Found")
+                
+        # if user is not None and hasattr(user, 'student'):
+        # login(request, user)
+        # request.session['is_student'] = True  # 🔥 Set session key
+        # return redirect('student_dashboard')
 
     return render(request, 'login.html', {'email': email, 'role': role})
 
@@ -58,12 +64,19 @@ def student_dashboard(request):
     if not student_id:
         return redirect('login')
     student = Student.objects.get(id=student_id)
+    months = ['Jan', 'Feb', 'Mar', 'Apr', 'May']  # or dynamic based on data
+    monthly_scores = [65, 75, 80, 85, 90]
+    overall_percent = sum(monthly_scores) // len(monthly_scores)
     context = {
         'student': student,
         'solved_count': 12,
         'pending_assignments': 3,
         'overall_score': 86,
         'rank': 18,
+        'months': json.dumps(months),
+        'monthly_scores': json.dumps(monthly_scores),
+        'overall_percent': overall_percent
+        
     }
     return render(request, 'student_dashboard.html', context)
 
