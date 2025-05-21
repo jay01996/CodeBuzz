@@ -42,10 +42,11 @@
                             <a class="nav-link {% if '/performance/' in request.path %}active{% endif %}" href="{% url 'rank' %}">Performance</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Leaderboard</a>
+                            <li class="nav-item"><a class="nav-link {% if request.path == '/submissions/leaderboard/' %}active{% endif %}" href="{% url 'leaderboard' %}">Leaderboard</a></li>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Syllabus</a>
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/academics/syllabus/' %}active{% endif %}" href="{% url 'syllabus' %}">Syllabus</a></li>
+
                         </li>
 
                     {% elif request.session.faculty_id %}

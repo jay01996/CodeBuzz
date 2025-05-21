@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Syllabus{% endblock %}
+
+{% block start %}
+<h3 class="mb-4">Syllabus - Semester {{ student.semester }}</h3>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Subject</th>
+                <th>Program No.</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in syllabus_list %}
+            <tr>
+                <td>{{ s.subject }}</td>
+                <td>{{ s.program_number }}</td>
+                <td>{{ s.program_description }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No syllabus available for your semester.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -32,6 +32,9 @@ urlpatterns = [
     # Features
     path('submissions/', include('submissions.urls')),
     path('performance/', include('performance.urls')),
+    
+    #  'academics'
+    path('academics/', include('academics.urls')), 
 
     # Django Admin Panel
     path('admin/', admin.site.urls),

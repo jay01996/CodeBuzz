@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block title %}Leaderboard - CodeBuzz{% endblock %}
+
+{% block start %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">🏆 Leaderboard</h2>
+
+   
+   <!-- Filter Form -->
+<form method="get" class="row g-3 mb-4 align-items-end">
+    <div class="col-md-3">
+        <label class="form-label">University</label>
+        <select name="university" class="form-select">
+            <option value="">All Universities</option>
+            {% for u in universities %}
+                <option value="{{ u }}" {% if filters.university == u %}selected{% endif %}>{{ u }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">College</label>
+        <select name="college" class="form-select">
+            <option value="">All Colleges</option>
+            {% for c in colleges %}
+                <option value="{{ c }}" {% if filters.college == c %}selected{% endif %}>{{ c }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Branch</label>
+        <select name="branch" class="form-select">
+            <option value="">All Branches</option>
+            {% for b in branches %}
+                <option value="{{ b }}" {% if filters.branch == b %}selected{% endif %}>{{ b }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Semester</label>
+        <select name="semester" class="form-select">
+            <option value="">All Semesters</option>
+            {% for s in semesters %}
+                <option value="{{ s }}" {% if filters.semester == s|stringformat:"s" %}selected{% endif %}>{{ s }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2 d-flex gap-2">
+        <button type="submit" class="btn btn-primary w-100">
+            <i class="bi bi-search"></i> Search
+        </button>
+        <a href="{% url 'leaderboard' %}" class="btn btn-outline-secondary w-100">
+            <i class="bi bi-x-circle"></i> Reset
+        </a>
+    </div>
+</form>
+
+
+    <!-- Leaderboard Table -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>University</th>
+                    <th>College</th>
+                    <th>Branch</th>
+                    <th>Semester</th>
+                    <th>Score</th>
+                    <th>Problems Solved</th>
+                    <th>Last Submission</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in leaderboard %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ student.full_name }}</td>
+                    <td>{{ student.university }}</td>
+                    <td>{{ student.college }}</td>
+                    <td>{{ student.branch }}</td>
+                    <td>{{ student.semester }}</td>
+                    <td>{{ student.total_score|default:0 }}</td>
+                    <td>{{ student.problems_solved }}</td>
+                    <td>{{ student.last_submission|date:"Y-m-d H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9" class="text-center">No matching records found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

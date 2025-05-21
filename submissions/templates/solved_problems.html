@@ -3,18 +3,19 @@
 
 {% include 'problem_nav_bar.html' %}
 <div class="container mt-4">
-    <h2 class="mb-3">Solved Problems</h2>
-    {% if problems %}
-        <ul class="list-group">
-            {% for submission in problems %}
-                <li class="list-group-item">
-                    <strong>{{ submission.problem.title }}</strong><br>
-                    Solved on: {{ submission.submitted_at|date:"M d, Y H:i" }}
-                </li>
-            {% endfor %}
-        </ul>
+    <h4 class="mb-3">Solved Problems</h4>
+
+    {% if solved %}
+    <ul class="list-group">
+        {% for submission in solved %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ submission.problem.title }}
+            <span class="badge bg-success">Solved</span>
+        </li>
+        {% endfor %}
+    </ul>
     {% else %}
-        <p>You haven't solved any problems yet.</p>
+    <div class="alert alert-info">No problems solved yet.</div>
     {% endif %}
 </div>
 {% endblock %}

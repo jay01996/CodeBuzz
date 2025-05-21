@@ -7,4 +7,5 @@ urlpatterns = [
     path('solved-problems/', solved_problems, name='solved_problems'),
     path('pending-problems/', pending_problems, name='pending_problems'),
     path('practice-problems/', practice_problems, name='practice_problems'),
+     path('leaderboard/', leaderboard, name='leaderboard'),
 ]
