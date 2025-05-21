@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block start %}
+{% include 'problem_nav_bar.html' %}
+<div class="container mt-4">
+    <h2 class="mb-3">Today's Problem</h2>
+    {% if problem %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ problem.title }}</h5>
+                <p class="card-text">{{ problem.description|linebreaks }}</p>
+                <p><strong>Difficulty:</strong> {{ problem.difficulty }}</p>
+            </div>
+        </div>
+    {% else %}
+        <p>No problem assigned for today.</p>
+    {% endif %}
+</div>
+{% endblock %}

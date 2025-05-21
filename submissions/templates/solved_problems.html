@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block start %}
+
+{% include 'problem_nav_bar.html' %}
+<div class="container mt-4">
+    <h2 class="mb-3">Solved Problems</h2>
+    {% if problems %}
+        <ul class="list-group">
+            {% for submission in problems %}
+                <li class="list-group-item">
+                    <strong>{{ submission.problem.title }}</strong><br>
+                    Solved on: {{ submission.submitted_at|date:"M d, Y H:i" }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You haven't solved any problems yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

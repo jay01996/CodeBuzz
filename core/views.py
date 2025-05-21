@@ -53,13 +53,9 @@ def set_password(request):
             messages.error(request, 'Passwords do not match!')
         else:
             student = Student.objects.get(email=email)
-            # student.password = make_password(password1)
             student.password = password1
             student.save()
-            # messages.success(request, 'Password successfully updated!')
             request.session.flush()
             messages.success(request, 'Password successfully updated!')
             return redirect('login') 
-            # return redirect('login')  # Replace with your login page name
-           
     return render(request, 'set_password.html')

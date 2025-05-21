@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block start %}
+{% include 'problem_nav_bar.html' %}
+<div class="container mt-4">
+    <h2 class="mb-3">Pending Problems</h2>
+    {% if problems %}
+        <ul class="list-group">
+            {% for submission in problems %}
+                <li class="list-group-item">
+                    <strong>{{ submission.problem.title }}</strong><br>
+                    Status: {{ submission.status|title }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No pending problems found.</p>
+    {% endif %}
+</div>
+{% endblock %}

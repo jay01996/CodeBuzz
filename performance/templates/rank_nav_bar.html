@@ -1,0 +1,18 @@
+<div class="bg-light border-bottom sticky-top" style="top: 56px; z-index: 1030;">
+    <div class="container">
+        <ul class="nav nav-tabs mt-2">
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/performance/class-rank/' %}active{% endif %}" href="{% url 'class_rank' %}">Class Rank</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/performance/college-rank/' %}active{% endif %}" href="{% url 'college_rank' %}">College Rank</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/performance/department-rank/' %}active{% endif %}" href="{% url 'department_rank' %}">Department Rank</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/performance/codebuzz-rank/' %}active{% endif %}" href="{% url 'codebuzz_rank' %}">CodeBuzz Rank</a>
+            </li>
+        </ul>
+    </div>
+</div>

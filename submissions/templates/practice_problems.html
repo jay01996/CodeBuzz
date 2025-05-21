@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block start %}
+{% include 'problem_nav_bar.html' %}
+<div class="container mt-4">
+    <h2 class="mb-3">Practice Problems</h2>
+    {% if problems %}
+        <ul class="list-group">
+            {% for problem in problems %}
+                <li class="list-group-item">
+                    <strong>{{ problem.title }}</strong><br>
+                    <p>{{ problem.description|truncatewords:25 }}</p>
+                    <p><strong>Difficulty:</strong> {{ problem.difficulty }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No practice problems available.</p>
+    {% endif %}
+</div>
+{% endblock %}
