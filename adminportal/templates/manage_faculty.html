@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Manage Faculty{% endblock %}
+
+{% block start %}
+<h2>All Faculty</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Department</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for faculty in faculty_list %}
+    <tr>
+      <td>{{ faculty.name }}</td>
+      <td>{{ faculty.email }}</td>
+      <td>{{ faculty.department }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

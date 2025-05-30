@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block start %}
+{% include 'problem_nav_bar.html' %}
+<div class="container mt-4">
+    <h4 class="mb-3">Pending Problems</h4>
+
+    {% if pending %}
+    <ul class="list-group">
+        {% for problem in pending %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ problem.title }}
+            <a href="#" class="btn btn-sm btn-outline-warning">Solve</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="alert alert-success">No pending problems!</div>
+    {% endif %}
+</div>
+{% endblock %}

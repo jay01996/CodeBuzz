@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}View Reports{% endblock %}
+
+{% block start %}
+<h2>Performance Reports</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Course</th>
+            <th>Performance Score</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for report in reports %}
+        <tr>
+            <td>{{ report.student_name }}</td>
+            <td>{{ report.course }}</td>
+            <td>{{ report.performance_score }}</td>
+            <td>{{ report.date }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No reports available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

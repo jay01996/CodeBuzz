@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block start %}
+<div class="container mt-5">
+  <div class="card shadow-lg p-4">
+    <div class="row align-items-center">
+      
+      <!-- Profile Image -->
+      <div class="col-md-4 text-center mb-4">
+        <img src="{% static 'core/images/admin_avatar.png' %}" alt="Profile Photo"
+             class="rounded-circle border border-3 border-success"
+             style="width: 180px; height: 180px; object-fit: cover;">
+        <h4 class="mt-3">{{ admin.name }}</h4>
+        <p class="text-muted">{{ admin.department }}</p>
+      </div>
+
+      <!-- Profile Info -->
+      <div class="col-md-8">
+        <h3 class="mb-4 text-success border-bottom pb-2">Admin Information</h3>
+
+        <div class="row mb-3">
+          <div class="col-sm-4 fw-bold">Employee ID:</div>
+          <div class="col-sm-8">{{ admin.employee_id }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-4 fw-bold">Email:</div>
+          <div class="col-sm-8">{{ admin.email }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-4 fw-bold">Phone:</div>
+          <div class="col-sm-8">{{ admin.phone_no }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-4 fw-bold">Department:</div>
+          <div class="col-sm-8">{{ admin.department }}</div>
+        </div>
+
+        <div class="text-end mt-4">
+          <a href="{% url 'admin_dashboard' %}" class="btn btn-outline-success">Back to Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}HOD Dashboard{% endblock %}
+
+
+{% block start %}
+<div class="d-flex" id="wrapper">
+
+  <!-- Sidebar -->
+  <div class="bg-dark border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading text-white">📊 HOD Panel</div>
+    <div class="list-group list-group-flush">
+      <a href="{% url 'admin_dashboard' %}" class="list-group-item list-group-item-action bg-dark text-white">🏠
+        Dashboard</a>
+      <a href="{% url 'manage_students' %}" class="list-group-item list-group-item-action bg-dark text-white">👥 Manage
+        Students</a>
+      <a href="{% url 'manage_faculty' %}" class="list-group-item list-group-item-action bg-dark text-white">👨‍🏫
+        Manage Faculty</a>
+      <a href="{% url 'manage_problem' %}" class="list-group-item list-group-item-action bg-dark text-white">📝
+        Problems</a>
+      <a href="{% url 'display_ranking' %}" class="list-group-item list-group-item-action bg-dark text-white">📈
+        Performance</a>
+      <a href="{% url 'view_reports' %}" class="list-group-item list-group-item-action bg-dark text-white">📊
+        Reports</a>
+      <a href="{% url 'manage_syllabus' %}" class="list-group-item list-group-item-action bg-dark text-white">📘
+        Syllabus</a>
+      <a href="{% url 'create_announcement' %}" class="list-group-item list-group-item-action bg-dark text-white">📣
+        Announcements</a>
+      <a href="{% url 'email_students' %}" class="list-group-item list-group-item-action bg-dark text-white">📧
+        Communication</a>
+      <a href="{% url 'student_logs' %}" class="list-group-item list-group-item-action bg-dark text-white">🕵️ Logs</a>
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper" class="w-100">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      <button class="btn btn-primary" id="menu-toggle">☰</button>
+      <span class="navbar-brand ms-3">Welcome, {{ hod_name }}</span>
+    </nav>
+
+    <div class="container-fluid py-4 mt-4">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <div class="card text-white bg-primary shadow">
+            <div class="card-body mt-3 mb-3">
+              <h3>👨‍🏫 Total Faculty: <strong>{{ total_faculty }}</strong></h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="card text-white bg-success shadow">
+            <div class="card-body mt-3 mb-3">
+              <h3>👥 Total Students: <strong>{{ total_students }}</strong></h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="card text-white bg-warning shadow">
+            <div class="card-body mt-3 mb-3">
+              <h4> 📝 Active Problems: <strong>{{ active_problems }}</strong></h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="card text-white bg-info shadow">
+            <div class="card-body mt-3 mb-3">
+              <h5>📈 Top Performer: <strong>{{ top_performer }}</strong></h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5>Submissions Trend (7 Days)</h5>
+              <canvas id="submissionChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5>Top 5 Students</h5>
+              <ul class="list-group">
+                <li class="list-group-item">1. Rohan - 95 pts</li>
+                <li class="list-group-item">2. Priya - 90 pts</li>
+                <!-- ... -->
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5>Recent Assignments</h5>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Assigned To</th>
+                  <th>Deadline</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Sorting Algo</td>
+                  <td>3rd Sem</td>
+                  <td>June 2</td>
+                  <td>Active</td>
+                </tr>
+                <!-- More rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toggle Sidebar Script -->
+<script>
+  const toggleBtn = document.getElementById("menu-toggle");
+  const wrapper = document.getElementById("wrapper");
+  toggleBtn.addEventListener("click", function () {
+    wrapper.classList.toggle("toggled");
+  });
+</script>
+
+<style>
+  #wrapper {
+    display: flex;
+    align-items: stretch;
+  }
+
+  #sidebar-wrapper {
+    min-width: 250px;
+    max-width: 250px;
+    transition: all 0.3s ease;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -250px;
+  }
+
+  #page-content-wrapper {
+    width: 100%;
+  }
+</style>
+{% endblock %}

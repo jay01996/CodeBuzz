@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block start %}
+{% include 'problem_nav_bar.html' %}
+<!-- <div class="container mt-4">
+    <h2 class="mb-3">Today's Problem</h2>
+    {% if problem %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ problem.title }}</h5>
+                <p class="card-text">{{ problem.description|linebreaks }}</p>
+                <p><strong>Difficulty:</strong> {{ problem.difficulty }}</p>
+            </div>
+        </div>
+    {% else %}
+        <p>No problem assigned for today.</p>
+    {% endif %}
+</div> -->
+
+
+<h4 class="mb-3">Today's Assigned Problems</h4>
+
+{% if problems %}
+    <div class="list-group">
+        {% for problem in problems %}
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <h6>{{ problem.title }}</h6>
+                    <small class="text-muted">Deadline: {{ problem.deadline }}</small>
+                </div>
+                <a href="#" class="btn btn-sm btn-outline-primary">Solve</a>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info">No problems assigned in the last 3 days.</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - CodeBuzz{% endblock %}
+
+{% block start %}
+<div>
+    <img src="{% static 'core/src/about1.png' %}" 
+         class="img-fluid rounded" 
+         alt="About Image" 
+         style="height: 250px; width: 100%; object-fit: fill;">
+</div>
+
+<div class="container mt-2">
+    
+    <div class="text-center mb-4">
+        <h1 class="display-5 fw-bold">About CodeBuzz</h1>
+        <p class="lead">Your Campus Coding Companion 🚀</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Our Mission</h3>
+            <p>
+                CodeBuzz is built to help students from colleges and universities practice programming, compete,
+                and grow their coding skills. We aim to build a healthy coding culture inside campuses by
+                providing a structured yet fun platform for learning and competition.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <h4>🔥 Real-Time Practice</h4>
+            <p>Solve problems in Python, C, C++, Java & more with auto-evaluation.</p>
+        </div>
+        <div class="col-md-4">
+            <h4>📊 Track Performance</h4>
+            <p>Faculty can monitor student progress and generate performance reports.</p>
+        </div>
+        <div class="col-md-4">
+            <h4>🏆 Campus Competitions</h4>
+            <p>Challenge peers and climb the leaderboard in your department or college.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

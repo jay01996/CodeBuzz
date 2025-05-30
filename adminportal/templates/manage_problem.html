@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Manage problems{% endblock %}
+
+{% block start %}
+<h2>Manage your Problem</h2>
+<form method="post" action="{% url 'manage_problem' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="problem_name" class="form-label">Problem Name</label>
+        <input type="text" class="form-control" id="problem_name" name="problem_name" required>
+    </div>
+    <div class="mb-3">
+        <label for="problem_description" class="form-label">Problem Description</label>
+        <textarea class="form-control" id="problem_description" name="problem_description" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Problem</button>
+{% endblock %}

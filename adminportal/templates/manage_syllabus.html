@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Manage Syllabus{% endblock %}
+
+{% block start %}
+<h2>Manage your Syllabus</h2>
+<form method="post" action="{% url 'manage_syllabus' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="syllabus_name" class="form-label">Syllabus Name</label>
+        <input type="text" class="form-control" id="syllabus_name" name="syllabus_name" required>
+    </div>
+    <div class="mb-3">
+        <label for="syllabus_description" class="form-label">Syllabus Description</label>
+        <textarea class="form-control" id="syllabus_description" name="syllabus_description" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Syllabus</button>
+{% endblock %}

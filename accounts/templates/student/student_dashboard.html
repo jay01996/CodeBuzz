@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block start %}
+<div class="container-fluid mt-4">
+  <!-- Welcome Header -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h2 class="fw-bold">Welcome, {{ student.full_name }}</h2>
+      <p class="text-muted">UserID: {{student.student_id}} | Course: {{ student.course }} | Semester:
+        {{student.semester}}</p>
+      <p class="text-muted"><i> {% now "l, j F Y" %} </i></p>
+      <p class="text-dark"> Ready to code </p>
+    </div>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="row mb-4 p-3 rounded" style="border:1px solid #b6b1b1;">
+    <h4 class="border-bottom pb-2">Practice</h4>
+    <div class="col-md-3 pt-2">
+      <div class="card shadow-sm border-0 rounded text-white bg-dark">
+        <div class="card-body">
+          <h5 class="card-title">Today's Problems</h5>
+          <h2 class="fw-bold">#4</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 pt-2">
+      <div class="card shadow-sm border-0 rounded text-white bg-warning">
+        <div class="card-body">
+          <h5 class="card-title">Solved problems</h5>
+          <h2 class="fw-bold">{{ solved_count }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 pt-2">
+      <div class="card shadow-sm border-0 rounded text-white bg-success">
+        <div class="card-body">
+          <h5 class="card-title">Pending problems</h5>
+          <h2 class="fw-bold">{{ pending_assignments }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 pt-2">
+      <div class="card shadow-sm border-0 rounded text-white bg-info">
+        <div class="card-body">
+          <h5 class="card-title">Coding Streak</h5>
+          <h2 class="fw-bold">8 days</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 p-3 rounded" style="border:1px solid #b6b1b1;">
+    <h4 class="border-bottom pb-2">Performance Rank</h4>
+    <div class="col-md-3 pt-2">
+      <div class="card shadow-sm border-0 rounded text-white bg-dark">
+        <div class="card-body">
+          <h5 class="card-title">Class Rank</h5>
+          <h2 class="fw-bold">#4</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 pt-2">
+      <div class="card shadow-sm border-0 rounded text-white bg-warning">
+        <div class="card-body">
+          <h5 class="card-title">Department Rank</h5>
+          <h2 class="fw-bold">#60</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 pt-2">
+      <div class="card shadow-sm border-0 rounded text-white bg-success">
+        <div class="card-body">
+          <h5 class="card-title">College Rank</h5>
+          <h2 class="fw-bold">#785</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 pt-2">
+      <div class="card shadow-sm border-0 rounded text-white bg-info">
+        <div class="card-body">
+          <h5 class="card-title">Codebuzz Rank</h5>
+          <h2 class="fw-bold">#1265</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-5">
+    <h3 class="text-center mb-4">Overall Performance Chart</h3>
+    <div class="card shadow pt-4 pb-4">
+      <canvas id="areaChart" height="320"></canvas>
+      <p class="mt-3 text-center fw-bold fs-5">
+        Overall Performance: <span id="overallPerformance"></span>%
+      </p>
+    </div>
+  </div>
+
+
+
+  <!-- Feature Links -->
+
+  <div class="row mt-4 rounded" style="border:1px solid #b6b1b1;">
+    <h4 class="border-bottom p-4">Performance Rank</h4>
+
+    <div class="col-md-3 mb-3 pt-2">
+      <a href="{% url 'student_profile' %}" class="text-decoration-none">
+        <div class="card h-100 shadow-sm border-0 hover-shadow ">
+          <div class="card-body text-center">
+            <i class="bi bi-person-circle fs-1 text-primary"></i>
+            <h5 class="card-title mt-3">My Profile</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-3 mb-3">
+      <a href="#" class="text-decoration-none">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body text-center">
+            <i class="bi bi-code-square fs-1 text-success"></i>
+            <h5 class="card-title mt-3">Practice Problems</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-3 mb-3">
+      <a href="#" class="text-decoration-none">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body text-center">
+            <i class="bi bi-journal-text fs-1 text-warning"></i>
+            <h5 class="card-title mt-3">Assignments</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-3 mb-3">
+      <a href="#" class="text-decoration-none">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body text-center">
+            <i class="bi bi-journal-text fs-1 text-danger"></i>
+            <h5 class="card-title mt-3">Syllabus</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // Labels for months
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  // Scores (random from Jan to Jun, null after that)
+  const scores = [18, 85, 49, 65, 80, 39, 89, null, null, null, null, null];
+
+  // Calculate overall performance % (Jan to Jun only)
+  const validScores = scores.filter(score => score !== null);
+  const overall = validScores.reduce((a, b) => a + b, 0) / validScores.length;
+
+  // Update text below chart
+  window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('overallPerformance').innerText = overall.toFixed(2);
+  });
+
+  // Draw Area Chart
+  const ctx = document.getElementById('areaChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: months,
+      datasets: [{
+        label: 'Performance %',
+        data: scores,
+        fill: true,
+        tension: 0.4,
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100,
+          title: {
+            display: true,
+            text: 'Performance (%)'
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Months'
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: true
+        },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              return context.parsed.y !== null ? `${context.parsed.y}%` : 'No Data';
+            }
+          }
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}

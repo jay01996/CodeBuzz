@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Announcement{% endblock %}
+
+{% block start %}
+<h2>Create Announcements for Students</h2>
+<form method="post" action="{% url 'create_announcement' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="title" class="form-label">Announcement Title</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+    <div class="mb-3">
+        <label for="content" class="form-label">Announcement Content</label>
+        <textarea class="form-control" id="content" name="content" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Announcement</button>
+{% endblock %}

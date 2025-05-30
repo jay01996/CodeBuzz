@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Department Rank{% endblock %}
+{% block start %}
+{% include 'rank_nav_bar.html' %}
+<div class="card mt-3">
+  <div class="card-body">
+    <h5>Department Rank</h5>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Student ID</th>
+          <th>Name</th>
+          <th>Semester</th>
+          <th>Score</th>
+          <th>Problems Solved</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in ranks %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ record.student.user_id }}</td>
+          <td>{{ record.student.full_name }}</td>
+          <td>{{ record.student.semester }}</td>
+          <td>{{ record.total_score }}</td>
+          <td>{{ record.problems_solved }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6" class="text-center">No records found</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
