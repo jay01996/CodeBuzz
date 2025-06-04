@@ -1,6 +1,9 @@
 from django.shortcuts import *
 from .models import Syllabus
 from accounts.models import Student
+from django.contrib import messages
+from institute.models import Department, Course, Branch, Semester
+
 
 def syllabus_view(request):
     student_id = request.session.get('student_id')

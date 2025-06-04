@@ -13,3 +13,4 @@ class Syllabus(models.Model):
 
     def __str__(self):
         return f"{self.subject} ({self.program_number}) - {self.semester}"
+    

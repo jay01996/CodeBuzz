@@ -1,0 +1,85 @@
+<!-- templates/adminportal/update_faculty.html -->
+
+{% extends 'base/base_faculty.html' %}
+{% load static %}
+{% block start %}
+
+{% if messages %}
+{% for message in messages %}
+<div class="mt-2">
+    {{ message|safe }}
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Update Faculty Details</h4>
+        </div>
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Full Name</label>
+                        <input type="text" class="form-control" name="full_name" value="{{ faculty.full_name }}"
+                            required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Employee ID</label>
+                        <input type="text" class="form-control" name="employee_id" value="{{ faculty.employee_id }}"
+                            required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Department</label>
+                        <select name="department" class="form-select" required>
+                            <option value="">Select Department</option>
+                            {% for dept in departments %}
+                            <option value="{{ dept.id }}" {% if dept.id==faculty.department.id %}selected{% endif %}>{{
+                                dept.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Email</label>
+                        <input type="email" class="form-control" name="email" value="{{ faculty.email }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Contact Number</label>
+                        <input type="text" class="form-control" name="contact_number"
+                            value="{{ faculty.contact_number }}">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Gender</label>
+                        <select name="gender" class="form-select">
+                            <option value="">Select</option>
+                            <option value="Male" {% if faculty.gender=="Male" %}selected{% endif %}>Male</option>
+                            <option value="Female" {% if faculty.gender=="Female" %}selected{% endif %}>Female</option>
+                            <option value="Other" {% if faculty.gender=="Other" %}selected{% endif %}>Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Date of Birth</label>
+                        <input type="date" class="form-control" name="dob" value="{{ faculty.dob|date:'Y-m-d' }}">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Address</label>
+                        <textarea class="form-control" name="address" rows="3">{{ faculty.address }}</textarea>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Profile Photo</label>
+                        <input type="file" class="form-control" name="profile_photo">
+                        {% if faculty.profile_photo %}
+                        <img src="{{ faculty.profile_photo.url }}" alt="Photo" class="img-thumbnail mt-2" width="100">
+                        {% endif %}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success mt-3">Update Faculty</button>
+                <a href="{% url 'manage_faculty' %}" class="btn btn-secondary mt-3">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base/base_common.html' %}
+{% load static %}
+{% block title %}Student | CodeBuzz{% endblock %}
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'core/src/logo-name.svg' %}" alt="CodeBuzz" height="50" width="140">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link {% if request.path == '/student_dashboard/' %}active{% endif %}" href="{% url 'student_dashboard' %}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link {% if '/submissions/practice/' in request.path %}active{% endif %}" href="{% url 'practice_home' %}">Practice</a></li>
+                <li class="nav-item"><a class="nav-link {% if '/performance/' in request.path %}active{% endif %}" href="{% url 'rank' %}">Performance</a></li>
+                <li class="nav-item"><a class="nav-link {% if request.path == '/submissions/leaderboard/' %}active{% endif %}" href="{% url 'leaderboard' %}">Leaderboard</a></li>
+                <li class="nav-item"><a class="nav-link {% if request.path == '/academics/syllabus/' %}active{% endif %}" href="{% url 'syllabus' %}">Syllabus</a></li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i> Student
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="{% url 'student_dashboard' %}">My Dashboard</a></li>
+                        <li><a class="dropdown-item" href="{% url 'student_profile' %}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'verify_email' %}">Change Password</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="{% url 'student_logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}

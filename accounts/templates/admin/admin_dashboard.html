@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base/base_admin.html' %}
 {% load static %}
 {% block title %}HOD Dashboard{% endblock %}
 
@@ -16,6 +16,10 @@
         Students</a>
       <a href="{% url 'manage_faculty' %}" class="list-group-item list-group-item-action bg-dark text-white">👨‍🏫
         Manage Faculty</a>
+        <a href="{% url 'manage_subjects' %}" class="list-group-item list-group-item-action bg-dark text-white">📝
+        Manage Subject</a>
+        <a href="{% url 'manage_faculty_assignments' %}" class="list-group-item list-group-item-action bg-dark text-white">📝
+        Manage Faculty Assignment</a>
       <a href="{% url 'manage_problem' %}" class="list-group-item list-group-item-action bg-dark text-white">📝
         Problems</a>
       <a href="{% url 'display_ranking' %}" class="list-group-item list-group-item-action bg-dark text-white">📈

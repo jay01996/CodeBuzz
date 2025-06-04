@@ -29,4 +29,6 @@ urlpatterns = [
     path('problem-bank/', faculty_problem_bank, name='faculty_problem_bank'),
     path('notifications/', faculty_notifications, name='faculty_notifications'),
     
+    
+    
 ]

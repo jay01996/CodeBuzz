@@ -43,30 +43,56 @@ class Student(models.Model):
 
 # === Faculty Table ===
 class Faculty(models.Model):
-    employee_id = models.CharField(max_length=20, unique=True)
+    cbf_id = models.CharField(max_length=15, unique=True, editable=False)
     full_name = models.CharField(max_length=150)
+    employee_id = models.CharField(max_length=20, unique=True)
     email = models.EmailField(unique=True)
+    contact_number = models.CharField(max_length=15)
     password = models.CharField(max_length=128, default='01234')
-    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
     university = models.ForeignKey(University, on_delete=models.SET_NULL, null=True)
     college = models.ForeignKey(College, on_delete=models.SET_NULL, null=True)
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
     designation = models.CharField(max_length=100)
-    qualifications = models.TextField()
-    contact_number = models.CharField(max_length=15)
+    qualifications = models.TextField(max_length=500, blank=True, null=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True, blank=True)
+    dob = models.DateField(blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    profile_photo = models.ImageField(upload_to='faculty_photos/', null=True, blank=True)
+    
+    def save(self, *args, **kwargs):
+        if not self.cbf_id:
+            last = Faculty.objects.order_by('-id').first()
+            new_number = (int(last.cbf_id[3:]) + 1) if last and last.cbf_id else 1
+            self.cbf_id = f'CBF{str(new_number).zfill(4)}'
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.full_name} ({self.employee_id})"
+        return f"{self.full_name} ({self.cbf_id})"
 
 # === Admin Table ===
 class Admin(models.Model):
+    cbadmin_id = models.CharField(max_length=15, unique=True, editable=False)
     full_name = models.CharField(max_length=150)
+    employee_id = models.CharField(max_length=20, unique=True)
     email = models.EmailField(unique=True)
+    contact_number = models.CharField(max_length=15)
     password = models.CharField(max_length=128, default='01234')
-    designation = models.CharField(max_length=100)
-    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
     university = models.ForeignKey(University, on_delete=models.SET_NULL, null=True)
     college = models.ForeignKey(College, on_delete=models.SET_NULL, null=True)
-    contact_number = models.CharField(max_length=15)
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
+    designation = models.CharField(max_length=100)
+    qualifications = models.TextField(max_length=500, blank=True, null=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True, blank=True)
+    dob = models.DateField(blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    profile_photo = models.ImageField(upload_to='admin_photos/', null=True, blank=True)
+    
+    def save(self, *args, **kwargs):
+        if not self.cbadmin_id:
+            last = Admin.objects.order_by('-id').first()
+            new_number = (int(last.cbadmin_id[4:]) + 1) if last and last.cbadmin_id else 1
+            self.cbadmin_id = f'CBAD{str(new_number).zfill(3)}'
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.full_name} ({self.designation})"
+        return f"{self.full_name}-({self.cbadmin_id})"

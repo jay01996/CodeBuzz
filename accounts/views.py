@@ -10,8 +10,12 @@ import json
 def student_dashboard(request):
     student_id = request.session.get('student_id')
     if not student_id:
+        return redirect('login')  # session not found = redirect to login
+    try:
+        student = Student.objects.get(id=student_id)
+    except Student.DoesNotExist:
         return redirect('login')
-    student = Student.objects.get(id=student_id)
+    
     months = ['Jan', 'Feb', 'Mar', 'Apr', 'May']  # or dynamic based on data
     monthly_scores = [65, 75, 80, 85, 90]
     overall_percent = sum(monthly_scores) // len(monthly_scores)
@@ -53,9 +57,14 @@ def student_profile(request):
 # Create faculty views here.
 def faculty_dashboard(request):
     faculty_id = request.session.get('faculty_id')
+    
     if not faculty_id:
         return redirect('login')
-    faculty = Faculty.objects.get(id=faculty_id)
+    try:
+        admin = Faculty.objects.get(id=faculty_id)
+    except Faculty.DoesNotExist:
+        # If admin with the given ID is not found, redirect to login
+        return redirect('login')
     
     features = [
         {"title": "My Class", "description": "List of students and their performance", "url": "faculty_my_class"},
@@ -235,9 +244,15 @@ def faculty_logout(request):
 
 def admin_dashboard(request):
     admin_id = request.session.get('admin_id')
+    
     if not admin_id:
         return redirect('login')
-    admin = Admin.objects.get(id=admin_id)
+    try:
+        admin = Admin.objects.get(id=admin_id)
+    except Admin.DoesNotExist:
+        # If admin with the given ID is not found, redirect to login
+        return redirect('login')
+    
     
     context = {
         "hod_name": "Dr. Divvya Yadav",

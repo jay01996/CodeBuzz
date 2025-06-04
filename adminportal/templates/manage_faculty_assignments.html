@@ -1,0 +1,142 @@
+{% extends 'base/base_faculty.html' %}
+{% load static %}
+
+{% block start %}
+<div class="container my-4">
+    <h4 class="mb-4">{{ editing|yesno:"Edit,Add" }} Faculty Subject Assignment</h4>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST" class="row g-3 border rounded p-4 shadow-sm bg-light">
+        {% csrf_token %}
+
+        <div class="col-md-6">
+            <label for="subject" class="form-label">Subject</label>
+            <select name="subject" id="subject" class="form-select" required>
+                <option value="">Select Subject</option>
+                {% for subject in subjects %}
+                    <option value="{{ subject.id }}" {% if editing and assignment.subject.id|stringformat:"s" == subject.id|stringformat:"s" %}selected{% endif %}>{{ subject.subject_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="faculty" class="form-label">Faculty</label>
+            <select name="faculty" id="faculty" class="form-select" required>
+                <option value="">Select Faculty</option>
+                {% for faculty in faculties %}
+                    <option value="{{ faculty.id }}" {% if editing and assignment.faculty.id|stringformat:"s" == faculty.id|stringformat:"s" %}selected{% endif %}>{{ faculty.full_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label for="branch" class="form-label">Branch</label>
+            <select name="branch" id="branch" class="form-select" required>
+                <option value="">Select Branch</option>
+                {% for branch in branches %}
+                    <option value="{{ branch.id }}" {% if editing and assignment.branch.id|stringformat:"s" == branch.id|stringformat:"s" %}selected{% endif %}>{{ branch.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label for="semester" class="form-label">Semester</label>
+            <select name="semester" id="semester" class="form-select" required>
+                <option value="">Select Semester</option>
+                {% for sem in semesters %}
+                    <option value="{{ sem.id }}" {% if editing and assignment.semester.id|stringformat:"s" == sem.id|stringformat:"s" %}selected{% endif %}>{{ sem.number }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label for="section" class="form-label">Section</label>
+            <select name="section" id="section" class="form-select" required>
+                <option value="">Select Section</option>
+                {% for sec in sections %}
+                    <option value="{{ sec.id }}" {% if editing and assignment.section.id|stringformat:"s" == sec.id|stringformat:"s" %}selected{% endif %}>{{ sec.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="course" class="form-label">Course</label>
+            <select name="course" id="course" class="form-select" required>
+                <option value="">Select Course</option>
+                {% for course in courses %}
+                    <option value="{{ course.id }}" {% if editing and assignment.course.id|stringformat:"s" == course.id|stringformat:"s" %}selected{% endif %}>{{ course.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="group" class="form-label">Group (Optional)</label>
+            <select name="group" id="group" class="form-select">
+                <option value="">Select Group</option>
+                {% for group in groups %}
+                    <option value="{{ group.id }}" {% if editing and assignment.group and assignment.group.id|stringformat:"s" == group.id|stringformat:"s" %}selected{% endif %}>{{ group.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-12 text-end">
+            <button type="submit" class="btn btn-outline-primary">{{ editing|yesno:"Update,Submit" }}</button>
+            {% if editing %}
+                <a href="{% url 'manage_faculty_assignments' %}" class="btn btn-outline-secondary ms-2">Cancel</a>
+            {% endif %}
+        </div>
+    </form>
+
+    <hr class="my-5">
+
+    <h4 class="mb-3">Assigned Faculty List</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Subject</th>
+                    <th>Faculty</th>
+                    <th>Branch</th>
+                    <th>Semester</th>
+                    <th>Section</th>
+                    <th>Course</th>
+                    <th>Group</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for assign in assignments %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ assign.subject.subject_name }}</td>
+                        <td>{{ assign.faculty.full_name }}</td>
+                        <td>{{ assign.branch.name }}</td>
+                        <td>{{ assign.semester.number }}</td>
+                        <td>{{ assign.section.name }}</td>
+                        <td>{{ assign.course.name }}</td>
+                        <td>{{ assign.group.name|default:"-" }}</td>
+                        <td>
+                            <a href="?edit={{ assign.id }}" class="btn btn-sm btn-outline-primary">Edit</a>
+                            <a href="?delete={{ assign.id }}" class="btn btn-sm btn-outline-danger ms-1"
+                               onclick="return confirm('Are you sure you want to delete this assignment?');">Delete</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="9" class="text-center text-muted">No assignments found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

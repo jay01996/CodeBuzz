@@ -1,0 +1,39 @@
+<!-- base_faculty.html -->
+{% extends 'base/base_common.html' %}
+{% load static %}
+{% block title %}Faculty | CodeBuzz{% endblock %}
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'core/src/logo-name.svg' %}" alt="CodeBuzz" height="50" width="140">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link {% if request.path == '/faculty_dashboard/' %}active{% endif %}" href="{% url 'faculty_dashboard' %}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Manage Problems</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Review Submissions</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Assignments</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Student Reports</a></li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i> Faculty
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="{% url 'faculty_dashboard' %}">My Dashboard</a></li>
+                        <li><a class="dropdown-item" href="{% url 'faculty_profile' %}">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Change Password</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="{% url 'faculty_logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}

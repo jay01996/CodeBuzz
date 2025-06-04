@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base/base_faculty.html' %}
 {% load static %}
 
 {% block title %}Manage Students{% endblock %}
@@ -12,6 +12,75 @@
     </div>
     <div class="col-md-2">
         <button type="submit" class="btn btn-primary w-100">Search</button>
+    </div>
+</form>
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-2">
+        <select name="course" id="id_course" class="form-select">
+            <option value="">All Courses</option>
+            {% for item in courses %}
+                <option value="{{ item.id }}"
+                    {% if request.GET.course|add:"" == item.id|stringformat:"s" %}selected{% endif %}>
+                    {{ item.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <select name="branch" id="id_branch" class="form-select">
+            <option value="">All Branches</option>
+            {% for item in branches %}
+                <option value="{{ item.id }}"
+                    {% if request.GET.branch|add:"" == item.id|stringformat:"s" %}selected{% endif %}>
+                    {{ item.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <select name="semester" id="id_semester" class="form-select">
+            <option value="">All Semesters</option>
+            {% for item in semesters %}
+                <option value="{{ item.id }}"
+                    {% if request.GET.semester|add:"" == item.id|stringformat:"s" %}selected{% endif %}>
+                    {{ item.number }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <select name="section" id="id_section" class="form-select">
+            <option value="">All Sections</option>
+            {% for item in sections %}
+                <option value="{{ item.id }}"
+                    {% if request.GET.section|add:"" == item.id|stringformat:"s" %}selected{% endif %}>
+                    {{ item.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <select name="group" id="id_group" class="form-select">
+            <option value="">All Groups</option>
+            {% for item in groups %}
+                <option value="{{ item.id }}"
+                    {% if request.GET.group|add:"" == item.id|stringformat:"s" %}selected{% endif %}>
+                    {{ item.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-md-1 d-grid">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    <div class="col-md-1 d-grid">
+        <a href="{% url 'manage_students' %}" class="btn btn-secondary">Reset</a>
     </div>
 </form>
 
@@ -53,4 +122,68 @@
         {% endfor %}
     </tbody>
 </table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const courseSelect = document.getElementById("id_course");
+        const branchSelect = document.getElementById("id_branch");
+        const semesterSelect = document.getElementById("id_semester");
+        const sectionSelect = document.getElementById("id_section");
+        const groupSelect = document.getElementById("id_group");
+
+        courseSelect.addEventListener("change", function () {
+            const courseId = this.value;
+            fetch(`/ajax/load-branches/?course_id=${courseId}`)
+                .then(response => response.json())
+                .then(data => {
+                    branchSelect.innerHTML = '<option value="">All Branches</option>';
+                    data.forEach(branch => {
+                        branchSelect.innerHTML += `<option value="${branch.id}">${branch.name}</option>`;
+                    });
+                    semesterSelect.innerHTML = '<option value="">All Semesters</option>';
+                    sectionSelect.innerHTML = '<option value="">All Sections</option>';
+                    groupSelect.innerHTML = '<option value="">All Groups</option>';
+                });
+        });
+
+        branchSelect.addEventListener("change", function () {
+            const branchId = this.value;
+            fetch(`/ajax/load-semesters/?branch_id=${branchId}`)
+                .then(response => response.json())
+                .then(data => {
+                    semesterSelect.innerHTML = '<option value="">All Semesters</option>';
+                    data.forEach(sem => {
+                        semesterSelect.innerHTML += `<option value="${sem.id}">${sem.number}</option>`;
+                    });
+                    sectionSelect.innerHTML = '<option value="">All Sections</option>';
+                    groupSelect.innerHTML = '<option value="">All Groups</option>';
+                });
+        });
+
+        semesterSelect.addEventListener("change", function () {
+            const semesterId = this.value;
+            fetch(`/ajax/load-sections/?semester_id=${semesterId}`)
+                .then(response => response.json())
+                .then(data => {
+                    sectionSelect.innerHTML = '<option value="">All Sections</option>';
+                    data.forEach(sec => {
+                        sectionSelect.innerHTML += `<option value="${sec.id}">${sec.name}</option>`;
+                    });
+                    groupSelect.innerHTML = '<option value="">All Groups</option>';
+                });
+        });
+
+        sectionSelect.addEventListener("change", function () {
+            const sectionId = this.value;
+            fetch(`/ajax/load-groups/?section_id=${sectionId}`)
+                .then(response => response.json())
+                .then(data => {
+                    groupSelect.innerHTML = '<option value="">All Groups</option>';
+                    data.forEach(grp => {
+                        groupSelect.innerHTML += `<option value="${grp.id}">${grp.name}</option>`;
+                    });
+                });
+        });
+    });
+</script>
 {% endblock %}

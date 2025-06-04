@@ -12,14 +12,17 @@ import json
 #     return render(request, 'homepage.html')
 
 
+# def home(request):
+#     role = request.session.get('role')
+#     if role == 'student' and request.session.get('student_id'):
+#         return redirect('student_dashboard')
+#     elif role == 'faculty' and request.session.get('faculty_id'):
+#         return redirect('faculty_dashboard')
+#     elif role == 'admin' and request.session.get('admin_id'):
+#         return redirect('admin_dashboard')
+#     return render(request, 'homepage.html')
+
 def home(request):
-    role = request.session.get('role')
-    if role == 'student' and request.session.get('student_id'):
-        return redirect('student_dashboard')
-    elif role == 'faculty' and request.session.get('faculty_id'):
-        return redirect('faculty_dashboard')
-    elif role == 'admin' and request.session.get('admin_id'):
-        return redirect('admin_dashboard')
     return render(request, 'homepage.html')
 
 def about(request):
